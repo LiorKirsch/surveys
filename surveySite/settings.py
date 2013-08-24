@@ -73,7 +73,21 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'surveySite.middleware.RequireLoginMiddleware',  
 )
+
+LOGIN_REQUIRED_URLS = (
+    r'/crowdsourcing/(.*)$',
+    r'/(.*)$',
+    )
+
+LOGIN_REQUIRED_URLS_EXCEPTIONS = (
+        r'/login(.*)$',
+        r'/complete(.*)$',
+        r'/associate(.*)$',
+        r'/disconnect(.*)$',
+        r'/admin(.*)$',
+    )
 
 ROOT_URLCONF = 'surveySite.urls'
 
@@ -84,12 +98,23 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates')
 )
 
+FACEBOOK_APP_ID              = '701221253237127'
+FACEBOOK_API_SECRET          = '3918ee9a832afc4e141186930c408b3a'
+
+LOGIN_URL = '/login/facebook/?next=/'
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'social_auth',
     'crowdsourcing',
     'cms',
 )

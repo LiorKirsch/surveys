@@ -4,6 +4,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'', include('social_auth.urls')),
     ('', include('cms.urls')),
     (r'^crowdsourcing/', include('crowdsourcing.urls')),
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
