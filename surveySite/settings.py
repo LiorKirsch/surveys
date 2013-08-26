@@ -104,7 +104,6 @@ TEMPLATE_DIRS = (
 FACEBOOK_APP_ID              = '701221253237127'
 FACEBOOK_API_SECRET          = '3918ee9a832afc4e141186930c408b3a'
 
-#LOGIN_URL = '/login/facebook/?next=/'
 LOGIN_URL = '/login/facebook/'
 
 AUTHENTICATION_BACKENDS = (
