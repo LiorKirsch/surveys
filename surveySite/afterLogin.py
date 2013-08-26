@@ -1,27 +1,18 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+'''
+Created on Aug 26, 2013
 
-from crowdsourcing.models import Survey
-
+@author: lior
+'''
 from django.contrib.auth.signals import user_logged_in
 from social_auth.models import UserSocialAuth
 import facebook
 import json, os
 from django.conf import settings
-from django.http import HttpResponseRedirect
-
-def home(request):
-    latest_survey = None
-    surveys = Survey.live.order_by('-survey_date')
-    if surveys:
-        latest_survey = surveys[0]
-    return render_to_response(
-        "home.html",
-        {"latest_survey": latest_survey},
-        RequestContext(request))
 
 
-def newUserScript(request):
+    
+      
+def do_stuff(sender, user, request, **kwargs):
 
     instance = UserSocialAuth.objects.filter(provider='facebook').get()
     oauth_access_token = instance.tokens['access_token']
@@ -37,9 +28,3 @@ def newUserScript(request):
     
     with open(fileName, 'w') as outfile:
         json.dump(userData, outfile)
-        
-    redirectUrl = request.GET.get('next')
-    
-    return HttpResponseRedirect(redirectUrl)
-    
-    

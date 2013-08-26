@@ -11,7 +11,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'dev.db'             # Or path to database file if using sqlite3.
+DATABASE_NAME = os.path.join(PROJECT_ROOT,'dev.db')             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -76,9 +76,10 @@ MIDDLEWARE_CLASSES = (
     'surveySite.middleware.RequireLoginMiddleware',  
 )
 
+
 LOGIN_REQUIRED_URLS = (
     r'/crowdsourcing/(.*)$',
-    r'/(.*)$',
+    # r'/(.*)$',
     )
 
 LOGIN_REQUIRED_URLS_EXCEPTIONS = (
@@ -91,6 +92,8 @@ LOGIN_REQUIRED_URLS_EXCEPTIONS = (
 
 ROOT_URLCONF = 'surveySite.urls'
 
+DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
@@ -101,7 +104,8 @@ TEMPLATE_DIRS = (
 FACEBOOK_APP_ID              = '701221253237127'
 FACEBOOK_API_SECRET          = '3918ee9a832afc4e141186930c408b3a'
 
-LOGIN_URL = '/login/facebook/?next=/'
+#LOGIN_URL = '/login/facebook/?next=/'
+LOGIN_URL = '/login/facebook/'
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.facebook.FacebookBackend',
@@ -118,6 +122,8 @@ INSTALLED_APPS = (
     'crowdsourcing',
     'cms',
 )
+
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/newUser' 
 
 try:
     from local_settings import *
